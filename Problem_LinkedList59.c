@@ -90,9 +90,17 @@ scanf("%d", &choice);
         displayDLL();
         break;
         default :
-            printf("\n Cant be Run");
-            break;
-       
+        printf("\n Cant be Run");
+        break;
+        
+      case 2 :
+          printf("Yet to be Written");
+          break;
+
+      case 3 :
+         displayDLL();
+         break;
+          
 
 
     
