@@ -28,10 +28,23 @@ int Science;
 struct student *next, *prev;
 }
 struct student *newnode, *head, *tail, *temp;
-int Position , i , choice ;
+int Position , i , choice=1 ;
 
 void createDLL()
 {
+while(choice!=0)
+{
+newnode = (struct student*)malloc(sizeof(struct student));
+
+printf(" \n Enter Id (except -1) : ");
+scanf("%d" , &newnode->id);
+
+printf(" \n Enter Maths : ");
+scanf("%d" , &newnode->Maths);
+
+printf("\n Enter Science : ");
+scanf("%d" , &newnode->Science);
+
 
 
 
@@ -77,7 +90,7 @@ scanf("%d", &choice);
     switch(choice) 
     {
         case 1 :
-        printf("Choose Any Option : ");
+        printf("\n Choose Any Option : ");
         scanf("%d" , &i);
         if(i==1)
         insertAtBeginning();
