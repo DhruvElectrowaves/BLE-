@@ -30,20 +30,49 @@ struct student *next, *prev;
 struct student *newnode, *head, *tail, *temp;
 int Position , i , choice=1 ;
 
-void createDLL()
+void createLinkedList()
 {
-while(choice!=0)
-{
-newnode = (struct student*)malloc(sizeof(struct student));
-
-printf(" \n Enter Id (except -1) : ");
-scanf("%d" , &newnode->id);
-
-printf(" \n Enter Maths : ");
-scanf("%d" , &newnode->Maths);
-
-printf("\n Enter Science : ");
-scanf("%d" , &newnode->Science);
+    while(choice==1)
+  {
+    newnode = (struct student*)malloc(sizeof(struct student));
+   
+    if (newnode == NULL)
+    {
+        printf("Memory allocation failed\n");
+        return;  // Exit if memory allocation fails
+    }
+   
+    // Taking the input for the node
+    printf("\n Enter the id of Student (Except -1 to exit ) : ");
+    scanf( "%d" , &newnode->id);
+   
+    if(newnode->id == -1)
+     {
+        free(newnode);  // This newnode is dynamically allocated
+        choice =-1;
+        break;
+     }    
+    printf("\n Marks of Maths : ");
+    scanf( "%d" , &newnode->Maths);
+   
+    printf("\n Marks of Science : ");
+    scanf("%d" , &newnode->Science);
+   
+    newnode->next = NULL;
+    newnode->prev = NULL;
+    count++;
+    if(head==NULL)
+    {
+        head = newnode;
+        temp = newnode;
+    }
+    else
+    {
+        temp->next=newnode;
+        temp = newnode;
+    }
+  }
+} // end of createLinkedList()
 
 
 
@@ -113,7 +142,7 @@ scanf("%d", &choice);
       case 3 :
          displayDLL();
          break;
-          
+    }       
 
 
     
