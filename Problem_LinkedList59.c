@@ -64,11 +64,14 @@ void createLinkedList()
     if(head==NULL)
     {
         head = newnode;
+        tail = newnode;
         temp = newnode;
     }
     else
     {
         temp->next=newnode;
+        newnode->prev = temp ;
+        tail = newnode ;
         temp = newnode;
     }
   }
@@ -131,9 +134,6 @@ scanf("%d", &choice);
         insertAtAnyPosition();
         displayDLL();
         break;
-        default :
-        printf("\n Cant be Run");
-        break;
         
       case 2 :
           printf("Yet to be Written");
@@ -142,16 +142,18 @@ scanf("%d", &choice);
       case 3 :
          displayDLL();
          break;
+
+      default :
+        printf("\n Cant be Run");
+        break;     
     }       
-
-
-    
-createDLL();  // This Function creates the Doubly Linked List
-displayDLL(); // This is used to display the Linked List
-insertAtBeginning();  //This is used to insert at the Beginning 
-insertAtEnd(); // This is inserting at the end.
-insertAtPos(); //This is to insert at the specified position.
-insertAtAnyPosition(); //This is to insert after the specified position.   
+ 
+//createDLL();  // This Function creates the Doubly Linked List
+//displayDLL(); // This is used to display the Linked List
+//insertAtBeginning();  //This is used to insert at the Beginning 
+//insertAtEnd(); // This is inserting at the end.
+//insertAtPos(); //This is to insert at the specified position.
+//insertAtAnyPosition(); //This is to insert after the specified position.   
 }
 
 
