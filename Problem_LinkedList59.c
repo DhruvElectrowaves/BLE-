@@ -77,8 +77,18 @@ void createLinkedList()
   }
 } // end of createLinkedList()
 
-
-
+void displayDLL()
+{
+    temp = head;
+while(temp!=0)
+{
+printf("\n The id of the Student :  %d" , temp->id);
+printf("\n The Maths Marks of the Student :  %d" , temp->Maths);
+printf("\n The Science Marks of the Student :  %d" , temp->Science);
+temp=temp->next;
+}
+printf("\n The total number of Students :  %d" , count);
+} // end of displayDLL()
 
 
 
