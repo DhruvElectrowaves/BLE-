@@ -1,176 +1,173 @@
-/******************************************************   
-Create a doubly linked list with about 5 entries using the following
-structure. Insert a new entry before or after a given id. Delete an
-entry of a given id.
+#include<stdio.h>
+#include<stdlib.h>
 
-    Menu Items
-        1. Insert Entry
-        2. Delete Entry
-        3. Display List
-        4. Exit
-        
-    struct student {
-    struct student *prev;
+// Structure for student node
+struct student {
     int id;
     int Maths;
     int Science;
-    struct student *next;
-    }
-*********************************************************/
-#include<stdio.h>
-#include<stdint.h>
+    struct student *next, *prev;
+};
 
-struct student 
-{
-int id;
-int Maths;
-int Science;
-struct student *next, *prev;
-}
-struct student *newnode, *head, *tail, *temp;
-int Position , i , choice=1 ;
+// Global variables for the list
+struct student *head = NULL, *tail = NULL;
+int count = 0;
 
-void createLinkedList()
-{
-    while(choice==1)
-  {
-    newnode = (struct student*)malloc(sizeof(struct student));
-   
-    if (newnode == NULL)
-    {
-        printf("Memory allocation failed\n");
-        return;  // Exit if memory allocation fails
-    }
-   
-    // Taking the input for the node
-    printf("\n Enter the id of Student (Except -1 to exit ) : ");
-    scanf( "%d" , &newnode->id);
-   
-    if(newnode->id == -1)
-     {
-        free(newnode);  // This newnode is dynamically allocated
-        choice =-1;
-        break;
-     }    
-    printf("\n Marks of Maths : ");
-    scanf( "%d" , &newnode->Maths);
-   
-    printf("\n Marks of Science : ");
-    scanf("%d" , &newnode->Science);
-   
-    newnode->next = NULL;
-    newnode->prev = NULL;
-    count++;
-    if(head==NULL)
-    {
-        head = newnode;
-        tail = newnode;
-        temp = newnode;
-    }
-    else
-    {
-        temp->next=newnode;
-        newnode->prev = temp ;
-        tail = newnode ;
-        temp = newnode;
-    }
-  }
-} // end of createLinkedList()
-
-void displayDLL()
-{
-    temp = head;
-while(temp!=0)
-{
-printf("\n The id of the Student :  %d" , temp->id);
-printf("\n The Maths Marks of the Student :  %d" , temp->Maths);
-printf("\n The Science Marks of the Student :  %d" , temp->Science);
-temp=temp->next;
-}
-printf("\n The total number of Students :  %d" , count);
-} // end of displayDLL()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-int main()
-{
-// ------------- Create A linked list --------
-createDLL();  // This Function creates the Doubly Linked List     
-printf("Welcome to the Problem Statement 59 \n ");
-printf("Please Enter the Choice that you would like to make");
-printf("\n 1. Insert Entry");
-printf("\n 2. Delete Entry");
-printf("\n 3. Display Entry");
-printf("\n 4. Exit ");
-scanf("%d", &choice);
-
-    switch(choice) 
-    {
-        case 1 :
-        printf("\n Choose Any Option : ");
-        scanf("%d" , &i);
-        if(i==1)
-        insertAtBeginning();
-        else if(i==2)
-        insertAtEnd();
-        else if(i==3)
-        insertAtPos();
-        else
-        insertAtAnyPosition();
-        displayDLL();
-        break;
+// Function to create the initial linked list
+void createLinkedList() {
+    int choice = 1;
+    while (choice == 1) {
+        struct student *newnode = (struct student*)malloc(sizeof(struct student));
         
-      case 2 :
-          printf("Yet to be Written");
-          break;
-
-      case 3 :
-         displayDLL();
-         break;
-
-      default :
-        printf("\n Cant be Run");
-        break;     
-    }       
- 
-//createDLL();  // This Function creates the Doubly Linked List
-//displayDLL(); // This is used to display the Linked List
-//insertAtBeginning();  //This is used to insert at the Beginning 
-//insertAtEnd(); // This is inserting at the end.
-//insertAtPos(); //This is to insert at the specified position.
-//insertAtAnyPosition(); //This is to insert after the specified position.   
+        if (newnode == NULL) {
+            printf("Memory allocation failed\n");
+            return;
+        }
+        
+        // Taking input for the new node
+        printf("\nEnter the ID of Student (Enter -1 to exit): ");
+        scanf("%d", &newnode->id);
+        
+        if (newnode->id == -1) {
+            free(newnode);
+            break;
+        }
+        
+        printf("Enter the Maths marks: ");
+        scanf("%d", &newnode->Maths);
+        
+        printf("Enter the Science marks: ");
+        scanf("%d", &newnode->Science);
+        
+        newnode->next = NULL;
+        newnode->prev = NULL;
+        
+        if (head == NULL) {
+            head = newnode;
+            tail = newnode;
+        } else {
+            tail->next = newnode;
+            newnode->prev = tail;
+            tail = newnode;
+        }
+        count++;
+    }
 }
 
+// Function to display the doubly linked list
+void displayDLL() {
+    struct student *temp = head;
+    if (temp == NULL) {
+        printf("\nList is empty.\n");
+        return;
+    }
+    printf("\nList of students:\n");
+    while (temp != NULL) {
+        printf("ID: %d, Maths: %d, Science: %d\n", temp->id, temp->Maths, temp->Science);
+        temp = temp->next;
+    }
+    printf("Total number of students: %d\n", count);
+}
 
+// Function to insert an entry after a given ID
+void insertAfter(int id) {
+    struct student *newnode = (struct student*)malloc(sizeof(struct student));
+    if (newnode == NULL) {
+        printf("Memory allocation failed\n");
+        return;
+    }
 
+    printf("Enter the new student's ID: ");
+    scanf("%d", &newnode->id);
+    printf("Enter the Maths marks: ");
+    scanf("%d", &newnode->Maths);
+    printf("Enter the Science marks: ");
+    scanf("%d", &newnode->Science);
 
+    struct student *temp = head;
+    while (temp != NULL && temp->id != id) {
+        temp = temp->next;
+    }
 
+    if (temp == NULL) {
+        printf("Student with ID %d not found.\n", id);
+        free(newnode);
+        return;
+    }
 
+    newnode->next = temp->next;
+    newnode->prev = temp;
+    
+    if (temp->next != NULL) {
+        temp->next->prev = newnode;
+    } else {
+        tail = newnode;  // Update the tail if inserted at the end
+    }
+    temp->next = newnode;
+    count++;
+}
 
+// Function to delete an entry by ID
+void deleteByID(int id) {
+    struct student *temp = head;
+    while (temp != NULL && temp->id != id) {
+        temp = temp->next;
+    }
 
+    if (temp == NULL) {
+        printf("Student with ID %d not found.\n", id);
+        return;
+    }
 
+    if (temp->prev != NULL) {
+        temp->prev->next = temp->next;
+    } else {
+        head = temp->next;  // Update head if deleting the first node
+    }
+
+    if (temp->next != NULL) {
+        temp->next->prev = temp->prev;
+    } else {
+        tail = temp->prev;  // Update tail if deleting the last node
+    }
+
+    free(temp);
+    count--;
+    printf("Student with ID %d deleted.\n", id);
+}
+
+// Main function with menu
+int main() {
+    int choice, id;
+
+    while (1) {
+        printf("\nMenu:\n");
+        printf("1. Insert Entry\n");
+        printf("2. Delete Entry\n");
+        printf("3. Display List\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter the ID after which to insert: ");
+                scanf("%d", &id);
+                insertAfter(id);
+                break;
+            case 2:
+                printf("Enter the ID to delete: ");
+                scanf("%d", &id);
+                deleteByID(id);
+                break;
+            case 3:
+                displayDLL();
+                break;
+            case 4:
+                exit(0);
+            default:
+                printf("Invalid choice! Please try again.\n");
+        }
+    }
+    return 0;
+}
